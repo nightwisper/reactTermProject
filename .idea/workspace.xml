@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c0357079-b337-4c25-b7a1-54d149fe5726" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/App.js" afterPath="$PROJECT_DIR$/App.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Com/CounCode.js" afterPath="$PROJECT_DIR$/Com/CounCode.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Com/TextTranslation.js" afterPath="$PROJECT_DIR$/Com/TextTranslation.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -38,11 +38,9 @@
         <entry file="file://$PROJECT_DIR$/Com/CounCode.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="401">
-              <caret line="156" column="78" lean-forward="false" selection-start-line="156" selection-start-column="78" selection-end-line="156" selection-end-column="78" />
+              <caret line="193" column="0" lean-forward="true" selection-start-line="193" selection-start-column="0" selection-end-line="193" selection-end-column="0" />
               <folding>
-                <element signature="e#874#1173#0" expanded="false" />
-                <marker date="1543517685041" expanded="true" signature="4547:4863" ph="..." />
-                <marker date="1543517685041" expanded="true" signature="4653:4654" ph="..." />
+                <element signature="e#46#87#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -115,6 +113,7 @@
         <option value="$PROJECT_DIR$/Com/MapComponent.js" />
         <option value="$PROJECT_DIR$/App.js" />
         <option value="$PROJECT_DIR$/Com/TextTranslation.js" />
+        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/Com/CounCode.js" />
       </list>
     </option>
@@ -269,12 +268,12 @@
       <workItem from="1542592830715" duration="4479000" />
       <workItem from="1542653794425" duration="700000" />
       <workItem from="1542905827917" duration="8360000" />
-      <workItem from="1543450582115" duration="14495000" />
+      <workItem from="1543450582115" duration="14687000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="46556000" />
+    <option name="totallyTimeSpent" value="46748000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -327,9 +326,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#874#1173#0" expanded="false" />
-            <marker date="1543517685041" expanded="true" signature="4547:4863" ph="..." />
-            <marker date="1543517685041" expanded="true" signature="4653:4654" ph="..." />
+            <element signature="e#46#87#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -357,9 +354,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#874#1173#0" expanded="false" />
-            <marker date="1543517685041" expanded="true" signature="4547:4863" ph="..." />
-            <marker date="1543517685041" expanded="true" signature="4653:4654" ph="..." />
+            <element signature="e#46#87#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -387,9 +382,7 @@
         <state relative-caret-position="1116">
           <caret line="73" column="51" lean-forward="false" selection-start-line="73" selection-start-column="51" selection-end-line="73" selection-end-column="51" />
           <folding>
-            <element signature="e#874#1173#0" expanded="false" />
-            <marker date="1543517685041" expanded="true" signature="4547:4863" ph="..." />
-            <marker date="1543517685041" expanded="true" signature="4653:4654" ph="..." />
+            <element signature="e#46#87#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -428,9 +421,7 @@
         <state relative-caret-position="108">
           <caret line="10" column="21" lean-forward="false" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
           <folding>
-            <element signature="e#874#1173#0" expanded="false" />
-            <marker date="1543517685041" expanded="true" signature="4547:4863" ph="..." />
-            <marker date="1543517685041" expanded="true" signature="4653:4654" ph="..." />
+            <element signature="e#46#87#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -587,14 +578,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Com/CounCode.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="401">
-          <caret line="156" column="78" lean-forward="false" selection-start-line="156" selection-start-column="78" selection-end-line="156" selection-end-column="78" />
+          <caret line="193" column="0" lean-forward="true" selection-start-line="193" selection-start-column="0" selection-end-line="193" selection-end-column="0" />
           <folding>
-            <element signature="e#874#1173#0" expanded="false" />
-            <marker date="1543517685041" expanded="true" signature="4547:4863" ph="..." />
-            <marker date="1543517685041" expanded="true" signature="4653:4654" ph="..." />
+            <element signature="e#46#87#0" expanded="true" />
           </folding>
         </state>
       </provider>
