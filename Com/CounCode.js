@@ -12,13 +12,18 @@ export default class CounCode extends Component{
         this.state = {
             IpAddress:"",
             countryCode:"",
-            text:"car",
+            text:"",
             languageSpoken:"",
             locationPermissions:'unknown',
             position:           'unknown',
             latitude:50.60254,
             longitude:16.7218757,
-
+            country:"",
+            countryName:"",
+            population:"",
+            nativeName:"",
+            region:"",
+            topLevelDomain:""
 
         }
         this.getTranslation = this.getTranslation.bind(this);
@@ -47,7 +52,9 @@ export default class CounCode extends Component{
                 // 'Unable to get IP address.'
             });
 
-        await fetch('https://api.ip2location.com/?ip=32.59.17.32&key=FA1D2839EE&package=WS1')
+
+        await fetch('https://api.ip2location.com/?ip=185.91.175.0&key=FA1D2839EE&package=WS1')
+
         // Getting the IpAddress you are in. Note limit of 5000 queries
             .then(resp => {
                 console.log(resp._bodyText);
@@ -59,14 +66,20 @@ export default class CounCode extends Component{
         // Getting IpAddress information. We are getting the main language of the IpAddress you are in.
             .then(resp => resp.json())
             .then(resp => {
-                this.setState({languageSpoken:resp.languages[0].iso639_1})
-                console.log(this.state.languageSpoken)
-                console.log(resp) // lots of info about country
+                this.setState({
+                    languageSpoken:resp.languages[0].iso639_1,
+                    country:resp.languages[0].name,
+                    countryName:resp.name,
+                    population:resp.population,
+                    nativeName: resp.nativeName,
+                    region:resp.subregion,
+                    topLevelDomain:resp.topLevelDomain
+                })
+
             })
             .catch(err => console.log(err))
 
         await navigator.geolocation.getCurrentPosition(position =>{
-
             this.setState({
                 latitude:position.coords.latitude,
                 longitude: position.coords.longitude
@@ -85,8 +98,19 @@ export default class CounCode extends Component{
             .then(response => {
                 return response.json()})
             .then((response) => {
-                console.log(response);
                 this.setState({text:response.text[0]})
+
+            })
+            .catch(err => console.log(err))
+
+        fetch(`https://api.foursquare.com/v2/venues/search?ll=${this.state.latitude},${this.state.longitude}&limit=3&query=${this.state.text}&client_id=M2VPUKIPSAN51NXAWIJIUNZNSZVROYVBJRIMMCOSYGHXRNYO&client_secret=3SBW0GHP33SJQL4TGM3N5Q4MGDXM1EARYFRNKYNYKJ1KSRNK&v=20180101`)
+            .then(resp =>{
+                let j = resp._bodyText
+                let i;
+                for(i in JSON.parse(j).response.venues){
+                    console.log(JSON.parse(j).response.venues[i].name)
+                    console.log(JSON.parse(j).response.venues[i].location.address)
+                }
 
             })
             .catch(err => console.log(err))
@@ -95,17 +119,47 @@ export default class CounCode extends Component{
 
     render(){
         return(
-            <View>
-                <Text>{this.state.text}, {this.state.longitude}, {this.state.latitude}</Text>
-                <TextInput
-                    style={{width:100, height:40, borderColor:'red', borderWidth:1}}
-                    onChangeText={(text) => this.setState({text})}
-                />
+            <View style={styles.container}>
+                <View style={{flexDirection:'row', flexWrap:'wrap'}}>
+                    <Text style={{fontSize:15, top:10}}>Enter Text:</Text>
+                    <TextInput
+                        style={{width:210, height:30 , borderBottomColor: 'black', borderBottomWidth:1, left:15 }}
+                        onChangeText={(text) => this.setState({text})}
+                    />
+
+                </View>
+
+                <View style={{flexDirection:'row', flexWrap:'wrap'}}>
+                    <Text style={{fontSize:15, top:10}}>Translated to {this.state.country}:</Text>
+                    <Text style={{fontSize:15, top:10, width:210}}> {this.state.text}</Text>
+                </View>
+
+                <View style={{top:20, left:120, bottomMargin:40, flexDirection:'row', flexWrap:'wrap'}}>
                 <Button
-                    title="Click me"
+                    title="Translate"
                     onPress={this.getTranslation}/>
+
+                </View>
+
+                    <View stlye={{}}>
+                        <Text style={{top:30,left:-5,fontSize:20}}> Country Information:</Text>
+                        <View style={{flexDirection:'row', flexWrap:'wrap', top:50}}><Text>Country:</Text><Text>                 {this.state.countryName}</Text></View>
+                        <View style={{flexDirection:'row', flexWrap:'wrap', top:70}}><Text >Population:</Text><Text>            {this.state.population}</Text></View>
+                        <View style={{flexDirection:'row', flexWrap:'wrap', top:90}}><Text>Native Name:</Text><Text>         {this.state.nativeName}</Text></View>
+                        <View style={{flexDirection:'row', flexWrap:'wrap', top:110}}><Text>Region:</Text><Text>                   {this.state.region}</Text></View>
+                        <View style={{flexDirection:'row', flexWrap:'wrap', top:130}}><Text>Domain Name:</Text><Text>       {this.state.topLevelDomain}</Text></View>
+                    </View>
+
+
             </View>
         )
     }
 }
+const styles = StyleSheet.create({
+    container: {
+        backgroundColor: '#fff',
+        left:20,
+        top:40
+    },
+});
 
