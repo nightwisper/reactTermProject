@@ -47,7 +47,7 @@ export default class CounCode extends Component{
                 // 'Unable to get IP address.'
             });
 
-        await fetch('https://api.ip2location.com/?ip=176.31.96.198&key=FA1D2839EE&package=WS1')
+        await fetch('https://api.ip2location.com/?ip=32.59.17.32&key=FA1D2839EE&package=WS1')
         // Getting the IpAddress you are in. Note limit of 5000 queries
             .then(resp => {
                 console.log(resp._bodyText);
