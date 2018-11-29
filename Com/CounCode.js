@@ -23,7 +23,8 @@ export default class CounCode extends Component{
             population:"",
             nativeName:"",
             region:"",
-            topLevelDomain:""
+            topLevelDomain:"",
+            currency:""
 
         }
         this.getTranslation = this.getTranslation.bind(this);
@@ -52,7 +53,7 @@ export default class CounCode extends Component{
                 // 'Unable to get IP address.'
             });
 
-        await fetch('https://api.ip2location.com/?ip=185.91.175.0&key=FA1D2839EE&package=WS1')
+        await fetch('https://api.ip2location.com/?ip=2.16.25.0&key=FA1D2839EE&package=WS1')
         // Getting the IpAddress you are in. Note limit of 5000 queries
             .then(resp => {
                 console.log(resp._bodyText);
@@ -71,7 +72,8 @@ export default class CounCode extends Component{
                     population:resp.population,
                     nativeName: resp.nativeName,
                     region:resp.subregion,
-                    topLevelDomain:resp.topLevelDomain
+                    topLevelDomain:resp.topLevelDomain,
+                    currency:resp.currencies[0].name
                 })
 
             })
@@ -79,8 +81,10 @@ export default class CounCode extends Component{
 
         await navigator.geolocation.getCurrentPosition(position =>{
             this.setState({
-                latitude:position.coords.latitude,
-                longitude: position.coords.longitude
+                // latitude:position.coords.latitude, for testing we are using russian locations
+                // longitude: position.coords.longitude
+                longitude: 21.0122,
+                latitude: 52.2297
             })
 
         }, (error) => alert(JSON.stringify(error)))
@@ -137,18 +141,25 @@ export default class CounCode extends Component{
                     title="Translate"
                     onPress={this.getTranslation}/>
 
+                <Button
+                    title="Maps"
+                    onPress={() => this.props.navigation.navigate('Home',{
+                        implat:  this.state.latitude,
+                        implong: this.state.longitude,
+                        search: this.state.text
+                    })}/>
+
                 </View>
 
-                    <View stlye={{}}>
+                    <View style={{top:50}}>
                         <Text style={{top:30,left:-5,fontSize:20}}> Country Information:</Text>
                         <View style={{flexDirection:'row', flexWrap:'wrap', top:50}}><Text>Country:</Text><Text>                 {this.state.countryName}</Text></View>
                         <View style={{flexDirection:'row', flexWrap:'wrap', top:70}}><Text >Population:</Text><Text>            {this.state.population}</Text></View>
                         <View style={{flexDirection:'row', flexWrap:'wrap', top:90}}><Text>Native Name:</Text><Text>         {this.state.nativeName}</Text></View>
                         <View style={{flexDirection:'row', flexWrap:'wrap', top:110}}><Text>Region:</Text><Text>                   {this.state.region}</Text></View>
                         <View style={{flexDirection:'row', flexWrap:'wrap', top:130}}><Text>Domain Name:</Text><Text>       {this.state.topLevelDomain}</Text></View>
+                        <View style={{flexDirection:'row', flexWrap:'wrap', top:150}}><Text>Currency:</Text><Text>               {this.state.currency}</Text></View>
                     </View>
-
-
             </View>
         )
     }
