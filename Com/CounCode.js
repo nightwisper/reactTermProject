@@ -81,7 +81,8 @@ export default class CounCode extends Component{
 
         await navigator.geolocation.getCurrentPosition(position =>{
             this.setState({
-                // latitude:position.coords.latitude, for testing we are using russian locations
+                // For testing we are using other country locations
+                // latitude:position.coords.latitude,
                 // longitude: position.coords.longitude
                 longitude: 21.0122,
                 latitude: 52.2297
@@ -113,10 +114,11 @@ export default class CounCode extends Component{
                     console.log(JSON.parse(j).response.venues[i].name)
                     console.log(JSON.parse(j).response.venues[i].location.address)
                 }
-
             })
             .catch(err => console.log(err))
     }
+
+
 
 
     render(){
@@ -143,11 +145,17 @@ export default class CounCode extends Component{
 
                 <Button
                     title="Maps"
-                    onPress={() => this.props.navigation.navigate('Home',{
-                        implat:  this.state.latitude,
-                        implong: this.state.longitude,
-                        search: this.state.text
-                    })}/>
+                    onPress={() =>
+                        this.props.navigation.navigate('Home',{
+                            implat:  this.state.latitude,
+                            implong: this.state.longitude,
+                            search: this.state.text
+                        })}/>
+
+                    <Button
+                        title="settings"
+                        onPress={()=> this.props.navigation.navigate("settings")}
+                    />
 
                 </View>
 

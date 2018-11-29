@@ -14,6 +14,9 @@ const RootStack = createStackNavigator({
         loadMe: {
              screen: CounCode
         },
+        settings:{
+            screen:TextTranslation
+        }
     },
     {
     initialRouteName:'loadMe'
