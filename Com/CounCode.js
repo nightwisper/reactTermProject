@@ -117,7 +117,7 @@ export default class CounCode extends Component{
 
     render(){
         return(
-            <View>
+            <View style={styles.container}>
                 <View style={{flexDirection:'row', flexWrap:'wrap'}}>
                     <Text style={{fontSize:15, top:10}}>Enter Text:</Text>
                     <TextInput
@@ -132,10 +132,11 @@ export default class CounCode extends Component{
                     <Text style={{fontSize:15, top:10, width:210}}> {this.state.text}</Text>
                 </View>
 
-                <View style={{top:20, left:-30,bottomMargin:40}}>
+                <View style={{top:20, left:120, bottomMargin:40, flexDirection:'row', flexWrap:'wrap'}}>
                 <Button
                     title="Translate"
                     onPress={this.getTranslation}/>
+
                 </View>
 
                     <View stlye={{}}>
@@ -146,16 +147,17 @@ export default class CounCode extends Component{
                         <View style={{flexDirection:'row', flexWrap:'wrap', top:110}}><Text>Region:</Text><Text>                   {this.state.region}</Text></View>
                         <View style={{flexDirection:'row', flexWrap:'wrap', top:130}}><Text>Domain Name:</Text><Text>       {this.state.topLevelDomain}</Text></View>
                     </View>
+
+
             </View>
         )
     }
 }
 const styles = StyleSheet.create({
-    fontSize: {
-       fontSize:25
+    container: {
+        backgroundColor: '#fff',
+        left:20,
+        top:40
     },
-    spacing:{
-        left:20
-    }
 });
 
