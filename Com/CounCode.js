@@ -2,7 +2,17 @@
  * Created by japjohal on 2018-11-14.
  */
 import React, { Component } from 'react';
-import { Alert, StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { 
+    Alert, 
+    Button,
+    Dimensions,
+    Plataform, 
+    StyleSheet, 
+    Text, 
+    TextInput, 
+    View   
+} from 'react-native';
+import { SearchBar } from 'react-native-elements';
 import publicIP from 'react-native-public-ip';
 
 export default class CounCode extends Component {
@@ -26,21 +36,24 @@ export default class CounCode extends Component {
             region: "",
             topLevelDomain: "",
             currency: ""
-
         }
+
         this.getTranslation = this.getTranslation.bind(this);
 
     }
 
     _requestPermission() {
-        console.log(Permissions);
-        // Permissions.request('location')
-        //     .then(response =>{
-        //         this.setState({
-        //             locationPermissions:response
-        //         })
-        //         console.log("Response: "+response)
-        //     })
+        if(Plataform.os === 'ios'){
+            console.log(Permissions);
+        } else {
+            Permissions.request('location')
+                .then(response =>{
+                    this.setState({
+                        locationPermissions:response
+                    })
+                    console.log("Response: "+response)
+                })
+        }
     }
 
     async componentDidMount() {
@@ -55,7 +68,7 @@ export default class CounCode extends Component {
             });
 
 
-        await fetch('https://api.ip2location.com/?ip=81.219.18.37&key=FA1D2839EE&package=WS1')
+        await fetch(`https://api.ip2location.com/?ip=${encodeURIComponent('81.219.18.37')}&key=FA1D2839EE&package=WS1`)
 
             // Getting the IpAddress you are in. Note limit of 5000 queries
             .then(resp => {
@@ -94,8 +107,10 @@ export default class CounCode extends Component {
         }, (error) => alert(JSON.stringify(error)))
     }
 
-    getTranslation() {
-        fetch('https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20181108T001143Z.262ed9e990d844ab.2dded43e52ffdb229c9242837dac893936062d30&lang=en-' + this.state.languageSpoken + '&text=' + this.state.text, {
+    getTranslation(text) {
+
+        // Fetches the translation
+        fetch(`https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20181108T001143Z.262ed9e990d844ab.2dded43e52ffdb229c9242837dac893936062d30&lang=en-${encodeURIComponent(this.state.languageSpoken)}&text=${encodeURIComponent(text)}`, {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -110,14 +125,14 @@ export default class CounCode extends Component {
 
             })
             .catch(err => console.log(err))
-
+        
+        // Fetch the locations around you.
         fetch(`https://api.foursquare.com/v2/venues/search?ll=${this.state.latitude},${this.state.longitude}&limit=3&query=${this.state.text}&client_id=M2VPUKIPSAN51NXAWIJIUNZNSZVROYVBJRIMMCOSYGHXRNYO&client_secret=3SBW0GHP33SJQL4TGM3N5Q4MGDXM1EARYFRNKYNYKJ1KSRNK&v=20180101`)
             .then(resp => {
-                let j = resp._bodyText
-                let i;
-                for (i in JSON.parse(j).response.venues) {
-                    console.log(JSON.parse(j).response.venues[i].name)
-                    console.log(JSON.parse(j).response.venues[i].location.address)
+                let body = resp._bodyText
+                for (let i in JSON.parse(body).response.venues) {
+                    console.log(JSON.parse(body).response.venues[i].name)
+                    console.log(JSON.parse(body).response.venues[i].location.address)
                 }
             })
             .catch(err => console.log(err))
@@ -129,7 +144,23 @@ export default class CounCode extends Component {
         return (
 
             <View style={styles.container}>
+                <SearchBar
+                    round
+                    searchIcon={{size:24}}
+                    lightTheme
+                    placeholder="Type here..."
+                    containerStyle={{
+                        width:Dimensions.get("window").width
+                    }}
+                    multiline={false}
+                    returnKeyType="search"
+                    onSubmitEditing={(e) => {
+                        this.setState({text:e.nativeEvent.text});
+                        this.getTranslation(e.nativeEvent.text);
+                    }}
+                />
                 <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+                    
                     <Text style={{ fontSize: 15, top: 10 }}>Enter Text:</Text>
                     <TextInput
                         style={{ width: 210, height: 30, borderBottomColor: 'black', borderBottomWidth: 1, left: 15 }}
@@ -152,9 +183,12 @@ export default class CounCode extends Component {
                         title="Maps"
                         onPress={() => {
                             if (this.state.translation === "") {
-                                Alert.alert('Missing Translation', 'Sorry but a translation is required in order to search through the maps. How are you supposed to tell the locals what you\'re looking for.')
+                                Alert.alert(
+                                    'Missing Translation', 
+                                    'Sorry but a translation is required in order to search through the maps.\
+                                    How are you supposed to tell the locals what you\'re looking for.')
                             } else {
-                                this.props.navigation.navigate('Home', {
+                                this.props.navigation.navigate('Map', {
                                     implat: this.state.latitude,
                                     implong: this.state.longitude,
                                     search: this.state.translation
@@ -186,8 +220,8 @@ export default class CounCode extends Component {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#fff',
-        left: 20,
-        top: 40
+        left: 0,
+        top: 17
     },
 });
 
